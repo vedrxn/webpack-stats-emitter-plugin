@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "removeComments": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2015"
+  }
+}
