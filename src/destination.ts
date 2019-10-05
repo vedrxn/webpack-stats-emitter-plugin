@@ -8,7 +8,9 @@ type Url = string | URL
 export interface Destination {
   format?: (stats: Stats.ToJsonOutput, destination: Destination) => any
   requestOptions?: RequestOptions
-  skip?: (stats: Stats.ToJsonOutput, destination: Destination) => boolean
+  skip?:
+    | boolean
+    | ((stats: Stats.ToJsonOutput, destination: Destination) => boolean)
   stats?: Stats.ToJsonOptions
   url: Url
 }
