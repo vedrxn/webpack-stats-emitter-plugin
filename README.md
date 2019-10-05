@@ -49,8 +49,8 @@ module.exports = {
 Each build's stats will be sent to the specified locations, the example above
 sends stats to `http://localhost:8080`. By default, module source code will not
 be included in stats. If you'd like to include it enable that setting in the
-stats option object, see [webpack stats configuration
-options.](https://webpack.js.org/configuration/stats/) 
+stats options object, see [webpack stats configuration
+options](https://webpack.js.org/configuration/stats/).
 
 ## Configuration
 
