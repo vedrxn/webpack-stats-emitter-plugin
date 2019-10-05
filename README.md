@@ -56,7 +56,7 @@ options](https://webpack.js.org/configuration/stats/).
 
 The plugin accepts a single argument, an options object. The documentation for
 the options object is below. View the package types, [package
-types.](https://github.com/vdrn/webpack-stats-emitter-plugin)
+types](https://github.com/vdrn/webpack-stats-emitter-plugin).
 
 ### url
 
