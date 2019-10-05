@@ -1,5 +1,5 @@
 import http from 'http'
-import { isEmpty } from 'lodash/fp'
+import { isEmpty, isFunction } from 'lodash/fp'
 import { Compiler, Stats } from 'webpack'
 import { Destination, createDestination } from './destination'
 
@@ -53,7 +53,11 @@ export default class WebpackStatsEmitterPlugin {
       this.getDestinations().forEach(destination => {
         const _stats = stats.toJson(destination.stats)
 
-        if (destination.skip && destination.skip(_stats, destination)) {
+        const isSkipped = isFunction(destination.skip)
+          ? destination.skip(_stats, destination)
+          : Boolean(destination.skip)
+
+        if (isSkipped) {
           return
         }
 

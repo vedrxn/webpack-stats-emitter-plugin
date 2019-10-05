@@ -2,10 +2,10 @@
   "name": "webpack-stats-emitter-plugin",
   "version": "0.0.1",
   "author": "Vedran Burdzovic",
-  "description": "A webpack stats plugin for sending webpack build compilation stats to local and remote locations",
+  "description": "Send webpack build stats to local and remote locations",
   "main": "dist/src/index.js",
   "license": "MIT",
-  "repository": "https://github.com/vedb/webpack-stats-emitter-plugin.git",
+  "repository": "https://github.com/vdrn/webpack-stats-emitter-plugin.git",
   "scripts": {
     "build": "tsc",
     "format": "prettier --no-semi --single-quote --write ./**/*.ts",
@@ -27,10 +27,10 @@
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
     "ts-jest": "^24.1.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "webpack": "^4.40.2"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
-    "webpack": "^4.40.2"
+    "lodash": "^4.17.15"
   }
 }
