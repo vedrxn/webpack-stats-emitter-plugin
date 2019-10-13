@@ -14,13 +14,13 @@ to local and remote locations.
 
 Using npm:
 
-```
+```bash
 npm install --save-dev webpack-stats-emitter-plugin
 ```
 
 Using yarn:
 
-```
+```bash
 yarn add --dev webpack-stats-emitter-plugin
 ```
 
@@ -29,7 +29,7 @@ plugin is configurable accepting options to customize as you like. A simple
 usage example is below:
 
 *webpack.config.js*
-```
+```js
 const WebpackStatsEmitterPlugin = require('webpack-stats-emitter-plugin').default
 
 module.exports = {
@@ -55,12 +55,12 @@ options](https://webpack.js.org/configuration/stats/).
 ## Configuration
 
 The plugin accepts a single argument, an options object. The documentation for
-the options object is below. View the package types, [package
+that options object is below. View webpack-stats-emitter-plugin types, [package
 types](https://github.com/vdrn/webpack-stats-emitter-plugin).
 
 ### url
 
-```
+```js
 { url?: Url }
 ```
 
@@ -68,7 +68,7 @@ A location for where to send stats.
 
 ### skip
   
-```
+```js
 { skip?: boolean | ((stats: webpack.Stats.ToJsonOutput, destination: Destination) => boolean) }
 ```
 
@@ -77,7 +77,7 @@ use the function form for more complex skip logic.
 
 ### format
   
-```
+```js
 { format?: (stats: webpack.Stats.ToJsonOutput, destination: Destination) => any }
 ```
 
@@ -86,7 +86,7 @@ will be sent to its associated location, unless skip is true.
 
 ### stats
   
-```
+```js
 { stats?: webpack.Stats.ToJsonOptions }
 ```
 
@@ -99,7 +99,7 @@ options object with source set to false.
 
 ### requestOptions 
   
-```
+```js
 { requestOptions?: http.RequestOptions }
 ```
 
@@ -108,7 +108,7 @@ Content-Type header set to application/json by default.
 
 ### destinations
 
-```
+```js
 { destinations?: Destination[] }
 ```
 

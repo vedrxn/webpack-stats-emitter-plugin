@@ -1,6 +1,6 @@
 import { RequestOptions } from 'http'
 import { URL } from 'url'
-import { isPlainObject, pick } from 'lodash/fp'
+import { isEmpty, isPlainObject, pick } from 'lodash/fp'
 import { Stats } from 'webpack'
 
 type Url = string | URL
@@ -26,7 +26,16 @@ export const destinationDefaults: {
 export const _isPlainObject = (arg?: any): arg is { [index: string]: any } =>
   isPlainObject(arg)
 
-type Indefinite<Type> = Type & { [index: string]: any }
+export type Indefinite<Type> = Type & { [index: string]: any }
+
+export const pickDestination = (
+  source?: Indefinite<Partial<Destination>>
+): Partial<Destination> | undefined => {
+  const properties = ['format', 'requestOptions', 'skip', 'stats', 'url']
+  const item = pick(properties, source)
+
+  return isEmpty(item) ? undefined : item
+}
 
 export const createDestination = (
   source?: Indefinite<Partial<Destination>>
@@ -35,8 +44,7 @@ export const createDestination = (
     return
   }
 
-  const properties = ['format', 'requestOptions', 'skip', 'stats', 'url']
-  const destination = <Destination>pick(properties, source)
+  const destination = <Destination>pickDestination(source)
 
   return {
     ...destination,
