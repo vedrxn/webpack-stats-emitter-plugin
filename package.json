@@ -8,7 +8,7 @@
   "repository": "https://github.com/vdrn/webpack-stats-emitter-plugin.git",
   "scripts": {
     "build": "tsc",
-    "format": "prettier --no-semi --single-quote --write ./**/*.ts",
+    "format": "prettier --write ./**/*.ts",
     "lint": "tsc --noEmit",
     "test": "jest"
   },
@@ -25,7 +25,7 @@
     "fast-check": "^1.16.3",
     "husky": "^3.0.1",
     "jest": "^24.8.0",
-    "prettier": "^1.18.2",
+    "prettier": "^2.3.0",
     "ts-jest": "^24.1.0",
     "typescript": "^3.5.3",
     "webpack": "^4.40.2"
