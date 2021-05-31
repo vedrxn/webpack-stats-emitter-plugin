@@ -1,8 +1,7 @@
-import { request } from 'http'
-import { URL } from 'url'
-import { isEmpty, isFunction } from 'lodash/fp'
-import { Compiler, Stats } from 'webpack'
-import { createDestination, Destination, pickDestination } from './destination'
+import http from 'http'
+import isFunction from 'lodash/fp/isFunction'
+import webpack from 'webpack'
+import { Destination, toDestination } from './destination'
 
 export interface Options extends Partial<Destination> {
   destinations?: Destination[]
@@ -10,15 +9,17 @@ export interface Options extends Partial<Destination> {
 
 export default class WebpackStatsEmitterPlugin {
   readonly options: Options
-  constructor(options: Options) {
-    if (!options.url && isEmpty(options.destinations)) {
+
+  constructor(options?: Options) {
+    if (!options?.url && !options?.destinations?.length) {
       throw new Error()
     }
 
     this.options = options
   }
-  dispatch(destination: Destination, payload: any) {
-    const req = request(destination.url, {
+
+  send(destination: Destination, payload: any) {
+    const request = http.request(destination.url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -26,43 +27,34 @@ export default class WebpackStatsEmitterPlugin {
       ...destination.requestOptions
     })
 
-    req.end(JSON.stringify(payload))
+    request.end(JSON.stringify(payload))
   }
+
   getDestinations(): Destination[] {
-    const properties = pickDestination(this.options) || {}
+    const destination = toDestination(this.options)
     const destinations = this.options.destinations || []
 
-    const { url, ...restProperties } = properties
-
-    const _destinations = destinations.map(
-      destination => <Destination>createDestination({
-          ...restProperties,
-          ...destination
-        })
-    )
-
-    const destination = createDestination(properties)
-
-    return destination ? [destination, ..._destinations] : _destinations
+    return destination ? [destination, ...destinations] : destinations
   }
-  apply(compiler: Compiler) {
+
+  apply(compiler: webpack.Compiler) {
     compiler.hooks.done.tap(this.constructor.name, stats => {
       this.getDestinations().forEach(destination => {
-        const _stats = stats.toJson(destination.stats)
+        const stats_ = stats.toJson(destination.statsOptions)
 
-        const isSkipped = isFunction(destination.skip)
-          ? destination.skip(_stats, destination)
-          : Boolean(destination.skip)
+        const skipped = isFunction(destination.skip)
+          ? destination.skip(stats_, destination)
+          : destination.skip
 
-        if (isSkipped) {
+        if (skipped) {
           return
         }
 
         const payload = destination.format
-          ? destination.format(_stats, destination)
-          : _stats
+          ? destination.format(stats_, destination)
+          : stats_
 
-        this.dispatch(destination, payload)
+        this.send(destination, payload)
       })
     })
   }
