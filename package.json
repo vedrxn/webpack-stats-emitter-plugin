@@ -5,7 +5,7 @@
   "description": "Send webpack build stats to local and remote locations",
   "main": "dist/src/index.js",
   "license": "MIT",
-  "repository": "https://github.com/vdrn/webpack-stats-emitter-plugin.git",
+  "repository": "https://github.com/vedrxn/webpack-stats-emitter-plugin.git",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write ./**/*.ts",
@@ -22,11 +22,10 @@
     "@types/lodash": "^4.14.139",
     "@types/node": "^12.7.5",
     "@types/webpack": "^4.39.1",
-    "fast-check": "^1.16.3",
     "husky": "^3.0.1",
-    "jest": "^24.8.0",
+    "jest": "^27.0.3",
     "prettier": "^2.3.0",
-    "ts-jest": "^24.1.0",
+    "ts-jest": "^27.0.2",
     "typescript": "^3.5.3",
     "webpack": "^4.40.2"
   },
