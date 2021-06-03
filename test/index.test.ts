@@ -15,3 +15,21 @@ describe('constructor', () => {
     expect(instance.options).toEqual(defaultOptions)
   })
 })
+
+describe('send', () => {
+  it('calls the provided onSend options event handler', () => {
+    const mock = jest.fn()
+
+    const instance = new WebpackStatsEmitterPlugin({
+      ...defaultOptions,
+      onSend: mock
+    })
+
+    const destination = { url: 'http://url' }
+    const payload = {}
+
+    instance.send(destination, payload)
+
+    expect(mock).toHaveBeenCalledWith(destination, payload)
+  })
+})

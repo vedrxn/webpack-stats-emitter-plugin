@@ -5,13 +5,14 @@ import { Destination, toDestination } from './destination'
 
 export interface Options extends Partial<Destination> {
   destinations?: Destination[]
+  onSend?: (destination: Destination, payload: any) => void
 }
 
 export default class WebpackStatsEmitterPlugin {
   readonly options: Options
 
-  constructor(options?: Options) {
-    if (!options?.url && !options?.destinations?.length) {
+  constructor(options: Options) {
+    if (!options.url && !options.destinations?.length) {
       throw new Error()
     }
 
@@ -28,6 +29,8 @@ export default class WebpackStatsEmitterPlugin {
     })
 
     request.end(JSON.stringify(payload))
+
+    this.options.onSend?.(destination, payload)
   }
 
   getDestinations(): Destination[] {
